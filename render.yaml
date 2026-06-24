@@ -1,12 +1,15 @@
-# Render Blueprint — one Web Service (API + built SPA) + one Cron Job (SLA sweep).
-# Secrets (sync:false) are set in the Render dashboard, never committed.
+# Render Blueprint — ONE Starter web service ($7/mo, always-on) that serves the
+# API + built SPA AND runs the SLA sweep in-process every 15 min
+# (RUN_SWEEP_IN_PROCESS=true), so there is no second billable cron service.
+#
+# Prefer a separate cron instead? Set RUN_SWEEP_IN_PROCESS=false and add a
+# `type: cron` service running `node server/src/jobs/slaSweep.js` (see RUNBOOK).
 services:
-  # ── Web service: Express API + built React SPA (same origin) ──
   - type: web
     name: luc-crm
     runtime: node
-    region: oregon
-    plan: free
+    region: oregon # pick the region nearest your users / Atlas cluster
+    plan: starter # $7/mo, does not sleep (required for the in-process sweep)
     buildCommand: npm install && npm run build
     startCommand: npm run start
     healthCheckPath: /api/health
@@ -25,6 +28,9 @@ services:
         value: 8h
       - key: SEED_ON_BOOT
         value: 'false'
+      - key: RUN_SWEEP_IN_PROCESS
+        value: 'true'
+      # --- secrets: set these in the Render dashboard (never committed) ---
       - key: MONGODB_URI
         sync: false
       - key: JWT_SECRET
@@ -38,23 +44,4 @@ services:
       - key: AWS_ACCESS_KEY_ID
         sync: false
       - key: AWS_SECRET_ACCESS_KEY
-        sync: false
-
-  # ── Cron job: SLA / automation sweep every 15 minutes ──
-  - type: cron
-    name: luc-crm-sla-sweep
-    runtime: node
-    region: oregon
-    plan: free
-    schedule: '*/15 * * * *'
-    buildCommand: npm install
-    startCommand: node server/src/jobs/slaSweep.js
-    envVars:
-      - key: NODE_ENV
-        value: production
-      - key: MESSAGING_DRIVER
-        value: console
-      - key: STORAGE_DRIVER
-        value: stub
-      - key: MONGODB_URI
         sync: false

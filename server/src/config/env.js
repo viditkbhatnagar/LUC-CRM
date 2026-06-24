@@ -44,6 +44,10 @@ export const env = {
   },
 
   seedOnBoot: bool(process.env.SEED_ON_BOOT, false),
+
+  // Run the SLA sweep on an in-process 15-min timer instead of a separate
+  // Render cron service — lets a single (always-on) web service do everything.
+  runSweepInProcess: bool(process.env.RUN_SWEEP_IN_PROCESS, false),
 };
 
 // Fail fast on missing critical secrets (except in test, which may stub them).

@@ -2,15 +2,19 @@
 
 Operational guide for running, seeding, deploying and troubleshooting the LUC CRM.
 
-## Architecture (one service + one cron)
+## Architecture (single $7 service)
 - **Web service** (`server/src/index.js`) — Express serves the JSON API at `/api/*`
   and the built React SPA (`client/dist`) for everything else, **same origin**.
-- **Cron job** (`server/src/jobs/slaSweep.js`) — runs every 15 min: flips SLA
-  breaches, notifies owner+managers, delivers due reminders, raises payment-due
-  alerts. Idempotent (safe to re-run).
+- **SLA sweep** (`server/src/jobs/slaSweep.js`) — flips SLA breaches, notifies
+  owner+managers, delivers due reminders, raises payment-due alerts. Idempotent.
+  Runs **in-process** every 15 min when `RUN_SWEEP_IN_PROCESS=true` (one always-on
+  Starter service does everything — cheapest), or as a separate Render Cron Job
+  if you prefer (`RUN_SWEEP_IN_PROCESS=false` + a `type: cron` service).
 - **Database** — MongoDB Atlas. App uses the `luc_crm_dev` database; tests use a
   separate `luc_crm_test` database on the same cluster. (Other databases on the
   cluster are never touched.)
+- **Document storage** — AWS S3 (`STORAGE_DRIVER=s3`); uploads go to the bucket,
+  downloads use freshly-signed URLs. `STORAGE_DRIVER=stub` needs no AWS account.
 
 ## Environment variables
 Copy `.env.example` → `server/.env` (gitignored) and fill:
@@ -67,16 +71,24 @@ npm run sweep          # node server/src/jobs/slaSweep.js
 ```
 On Render this runs automatically every 15 min via the cron service.
 
-## Deploy to Render (Blueprint)
+## Deploy to Render (single $7 Starter service)
 1. Push the repo (incl. `render.yaml`).
-2. Render → **New → Blueprint** → select the repo. It creates the web service
-   + the cron job.
-3. In each service's **Environment**, set the `sync:false` secrets:
-   `MONGODB_URI`, `JWT_SECRET`, `INGEST_API_KEY`, `CLIENT_ORIGIN`.
-4. Wait for the web build; confirm `GET /api/health` → `{ok:true}` at the URL.
-5. **Seed once** via a one-off shell (`npm run seed`) — not on every boot.
-6. Log in as `admin@luc.edu`, walk a lead to Won.
-7. After ~15 min, check the cron service logs for an `[sla-sweep]` summary.
+2. Render → **New → Blueprint** → select `viditkbhatnagar/LUC-CRM`. It creates
+   one **web service** on the **Starter** plan ($7/mo, always-on).
+3. Set the `sync:false` secrets in the service's **Environment** tab (values in
+   the deploy note / your local `server/.env`): `MONGODB_URI`, `JWT_SECRET`,
+   `INGEST_API_KEY`, `CLIENT_ORIGIN`, `AWS_S3_BUCKET`, `AWS_ACCESS_KEY_ID`,
+   `AWS_SECRET_ACCESS_KEY`.
+4. Wait for the build; confirm `GET /api/health` → `{ok:true}` at the Render URL.
+   Set `CLIENT_ORIGIN` to that URL and redeploy.
+5. **Seed once** via the service **Shell** tab: `npm run seed` (not on every boot).
+6. Log in as `admin@luc.edu`, capture a lead, walk it to Won.
+7. Watch the service **Logs** for `[sla-sweep:in-process]` lines (every 15 min).
+
+> The SLA sweep runs in-process (`RUN_SWEEP_IN_PROCESS=true`) so there is no
+> second billable service. To split it into a separate Render Cron Job instead,
+> set `RUN_SWEEP_IN_PROCESS=false` and add a `type: cron` service with
+> `startCommand: node server/src/jobs/slaSweep.js`, schedule `*/15 * * * *`.
 
 ## Closing a lead to "Won" (the money gate)
 1. Advance the lead through the stages (each gate requires its fields).
