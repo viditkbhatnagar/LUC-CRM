@@ -28,6 +28,10 @@ async function request(method, path, body) {
   const data = text ? JSON.parse(text) : null;
 
   if (!res.ok) {
+    // Mid-session expiry → let the app drop to /login (handled in AuthContext).
+    if (res.status === 401 && path !== '/auth/me') {
+      window.dispatchEvent(new Event('auth:unauthorized'));
+    }
     const e = data?.error || {};
     throw new ApiError(res.status, e.code, e.message, e.details ?? data?.existingLead);
   }

@@ -374,6 +374,17 @@
 .modal { background: var(--surface); border-radius: var(--r-lg); box-shadow: var(--shadow); padding: 1.5rem; width: 100%; max-width: 460px; }
 .modal h3 { margin-bottom: 1rem; }
 
+/* ── Flow map nodes ─────────────────────────────────────────────── */
+.flow-node {
+  display: flex; align-items: center; justify-content: space-between; gap: 0.5rem;
+  width: 100%; text-align: left; background: var(--surface); border: 1px solid var(--line);
+  border-left: 3px solid var(--brand-3); border-radius: var(--r-sm); padding: 0.55rem 0.7rem;
+  font-size: 0.82rem; font-weight: 500; cursor: pointer; transition: background 120ms, transform 90ms;
+}
+.flow-node:hover { background: var(--surface-2); transform: translateX(2px); }
+.flow-node.active { background: var(--brand-w); border-color: var(--brand); }
+.flow-node .count { font-size: 0.72rem; font-weight: 700; background: var(--surface-3); border-radius: 999px; padding: 0.1rem 0.45rem; }
+
 /* ── Notifications ──────────────────────────────────────────────── */
 .notif-wrap { position: relative; }
 .notif-badge {

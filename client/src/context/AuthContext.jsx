@@ -20,6 +20,13 @@ export function AuthProvider({ children }) {
     };
   }, []);
 
+  // Any mid-session 401 (expired token) → clear the session → RequireAuth redirects.
+  useEffect(() => {
+    const onUnauth = () => setUser(null);
+    window.addEventListener('auth:unauthorized', onUnauth);
+    return () => window.removeEventListener('auth:unauthorized', onUnauth);
+  }, []);
+
   const login = useCallback(async (email, password) => {
     const d = await api.post('/auth/login', { email, password });
     setUser(d.user);
