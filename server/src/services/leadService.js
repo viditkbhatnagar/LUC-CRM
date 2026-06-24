@@ -206,6 +206,39 @@ export async function updateLead(id, body, user) {
   return lead;
 }
 
+// Reassign a lead's owner (team_lead/admin) — logs + notifies the new owner.
+export async function reassignOwner(leadId, newOwnerId, manager) {
+  const lead = await loadOwnedLead(leadId, manager, { managerOnly: true });
+  const newOwner = await User.findById(newOwnerId);
+  if (!newOwner || !newOwner.active) throw NotFound('New owner not found');
+
+  const prevOwner = lead.owner;
+  lead.owner = newOwner._id;
+  lead.lastActivityAt = new Date();
+  await lead.save();
+
+  // Keep any open action task assigned to the new owner.
+  const { Task } = await import('../models/Task.js');
+  await Task.updateMany({ lead: lead._id, status: 'open' }, { $set: { owner: newOwner._id } });
+
+  await logActivity(lead._id, {
+    type: 'system',
+    message: `Reassigned to ${newOwner.name}`,
+    actor: manager,
+    actorLabel: manager.name,
+    meta: { from: String(prevOwner), to: String(newOwner._id) },
+  });
+
+  const { Notification } = await import('../models/Notification.js');
+  await Notification.create({
+    user: newOwner._id,
+    type: 'assignment',
+    message: `You were assigned lead ${lead.leadCode} — ${lead.name}`,
+    lead: lead._id,
+  });
+  return lead;
+}
+
 export default {
   assignOwner,
   findDuplicate,
@@ -214,4 +247,5 @@ export default {
   getLeadById,
   loadOwnedLead,
   updateLead,
+  reassignOwner,
 };

@@ -75,3 +75,46 @@ export function useAddActivity(id) {
     onSuccess: () => qc.invalidateQueries({ queryKey: ['activities', id] }),
   });
 }
+
+function invalidateLead(qc, id) {
+  qc.invalidateQueries({ queryKey: ['lead', id] });
+  qc.invalidateQueries({ queryKey: ['leads'] });
+  qc.invalidateQueries({ queryKey: ['activities', id] });
+  qc.invalidateQueries({ queryKey: ['reports'] });
+}
+
+export function useUpdateDocuments(id) {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: (body) => api.post(`/leads/${id}/documents`, body),
+    onSuccess: () => invalidateLead(qc, id),
+  });
+}
+
+export function useUploadDocument(id) {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: (file) => {
+      const fd = new FormData();
+      fd.append('file', file);
+      return api.upload(`/leads/${id}/documents/upload`, fd);
+    },
+    onSuccess: () => invalidateLead(qc, id),
+  });
+}
+
+export function useConfirmPayment(id) {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: (body) => api.post(`/leads/${id}/payment/confirm`, body),
+    onSuccess: () => invalidateLead(qc, id),
+  });
+}
+
+export function useReassign(id) {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: (owner) => api.post(`/leads/${id}/reassign`, { owner }),
+    onSuccess: () => invalidateLead(qc, id),
+  });
+}

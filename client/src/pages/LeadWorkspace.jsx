@@ -5,6 +5,8 @@ import Timeline from '../components/Timeline.jsx';
 import LifecycleRail from '../components/LifecycleRail.jsx';
 import GateList from '../components/GateList.jsx';
 import StageDataAccordion from '../components/StageDataAccordion.jsx';
+import ControlDeck from '../components/ControlDeck.jsx';
+import DocsPaymentPanel from '../components/DocsPaymentPanel.jsx';
 import { ScoreTag, StatusTag } from '../components/Tag.jsx';
 import { useLead, useActivities, useUpdateLead } from '../hooks/useLeads.js';
 import { useWorkflow } from '../hooks/useWorkflow.js';
@@ -90,18 +92,21 @@ export default function LeadWorkspace() {
 
         <div className="ws-grid">
           <div className="ws-main">
-            {/* Control deck placeholder — wired in M4 */}
-            <div className="card">
-              <div className="card-h"><h3>Decision & transitions</h3></div>
-              <p className="muted" style={{ fontSize: 13 }}>
-                The control deck (forward/exit/navigate actions, gate enforcement, lost-reason modal,
-                documents & payment) is wired in M4.
-              </p>
-              <div style={{ marginTop: 10 }}>
+            {/* Control deck — forward/exit/navigate, gate enforcement, lost modal */}
+            <ControlDeck lead={lead} stage={stage} meta={meta} />
+
+            {/* Exit criteria / SLA for the current stage */}
+            {!isTerminal && stage && (
+              <div className="card">
                 <span className="section-title">Exit criteria for this stage</span>
-                <p style={{ fontSize: 13 }}>{stage?.sla} · max age {stage?.maxAge}</p>
+                <p style={{ fontSize: 13, margin: '0.2rem 0' }}>SLA: {stage.sla} · max age {stage.maxAge}</p>
               </div>
-            </div>
+            )}
+
+            {/* Documents & payment (Close phase) */}
+            {(stage?.phase === 'close' || lead.docsReceived || lead.payment?.status !== 'none') && !isTerminal && (
+              <DocsPaymentPanel lead={lead} />
+            )}
 
             {/* Counsellor update */}
             <form className="card" onSubmit={saveUpdate}>

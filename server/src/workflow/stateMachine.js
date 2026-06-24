@@ -118,8 +118,9 @@ export function resolveTerminalAction(lifecycleStatus, exitReason, action) {
   return null;
 }
 
-// ── Scoring (02 §8) — deterministic. ──────────────────────────────────────
-export function computeScore({ source, interest, stage } = {}) {
+// ── Scoring (02 §8) — deterministic, capped.
+//    score = clamp(base + min(stageIndex,10) + round(confidence*0.1), 0, 100)
+export function computeScore({ source, interest, stage, confidence = 0 } = {}) {
   const b = SCORING.base;
   let base;
   if (source === 'Referral' || source === 'Google Ads') base = b.referralOrGoogle;
@@ -128,14 +129,9 @@ export function computeScore({ source, interest, stage } = {}) {
   if (base == null) base = b.fallback;
 
   const idx = stage ? Math.max(0, stageIndex(stage)) : 0;
-  const score = base + Math.min(idx, 10);
-  return Math.max(0, Math.min(100, Math.round(score)));
-}
-
-// Nudge by confidence when known (kept deterministic and capped).
-export function scoreWithConfidence(base, confidence) {
   const c = Number.isFinite(confidence) ? confidence : 0;
-  return Math.max(0, Math.min(100, Math.round(base + c * 0.1)));
+  const score = base + Math.min(idx, 10) + Math.round(c * 0.1);
+  return Math.max(0, Math.min(100, Math.round(score)));
 }
 
 export const META = { stages: STAGES, phases: PHASES, exitReasons: EXIT_REASONS };
