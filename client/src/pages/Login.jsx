@@ -32,52 +32,51 @@ export default function Login() {
   }
 
   return (
-    <main className="auth-wrap">
-      <section className="auth-card">
-        <div className="row" style={{ marginBottom: '0.4rem' }}>
-          <span className="sidebar-dot" style={{ width: 12, height: 12, borderRadius: '50%', background: 'var(--brand-3)' }} />
-          <h1 style={{ margin: 0 }}>LUC CRM</h1>
+    <main className="auth-split">
+      {/* Brand panel */}
+      <section className="auth-brand">
+        <div className="mark">
+          <span className="dot">L</span> LUC CRM
         </div>
-        <p className="tagline">Learners Education · lead-to-admission</p>
+        <div className="auth-hero">
+          <h2>Every enquiry, worked to a won admission.</h2>
+          <p>The lead-to-admission workspace for Learners Education — controlled, gated, and never idle.</p>
+        </div>
+        <div className="auth-stats">
+          <div className="s"><div className="n">13</div><div className="l">lifecycle stages</div></div>
+          <div className="s"><div className="n">5</div><div className="l">live dashboards</div></div>
+          <div className="s"><div className="n">SLA</div><div className="l">on every stage</div></div>
+        </div>
+      </section>
 
-        {error && <div className="alert alert-error" role="alert">{error}</div>}
+      {/* Form panel */}
+      <section className="auth-form-wrap">
+        <div className="auth-card">
+          <h1>Welcome back</h1>
+          <p className="tagline">Sign in to your workspace</p>
 
-        <form onSubmit={onSubmit}>
-          <div className="field">
-            <label htmlFor="email">Email</label>
-            <input
-              id="email"
-              className="input"
-              type="email"
-              autoComplete="username"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-              autoFocus
-            />
-          </div>
-          <div className="field">
-            <label htmlFor="password">Password</label>
-            <input
-              id="password"
-              className="input"
-              type="password"
-              autoComplete="current-password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
-          </div>
-          <button className="btn btn-primary btn-block" type="submit" disabled={busy}>
-            {busy ? 'Signing in…' : 'Sign in'}
-          </button>
-        </form>
+          {error && <div className="alert alert-error" role="alert">{error}</div>}
 
-        <p className="hint">
-          Seeded accounts (password <strong>password123</strong>):<br />
-          admin@learnerseducation.com · mariam@learnerseducation.com (team lead) ·
-          sara@learnerseducation.com · nadia@learnerseducation.com · ibrahim@learnerseducation.com
-        </p>
+          <form onSubmit={onSubmit}>
+            <div className="field">
+              <label htmlFor="email">Email</label>
+              <input id="email" className="input" type="email" autoComplete="username" value={email} onChange={(e) => setEmail(e.target.value)} required autoFocus />
+            </div>
+            <div className="field">
+              <label htmlFor="password">Password</label>
+              <input id="password" className="input" type="password" autoComplete="current-password" value={password} onChange={(e) => setPassword(e.target.value)} required />
+            </div>
+            <button className="btn btn-primary btn-block" type="submit" disabled={busy} style={{ marginTop: '0.4rem' }}>
+              {busy ? 'Signing in…' : 'Sign in'}
+            </button>
+          </form>
+
+          <p className="hint">
+            Demo accounts (password <strong>password123</strong>):<br />
+            admin@learnerseducation.com · mariam@learnerseducation.com (team lead)<br />
+            sara@learnerseducation.com · nadia@learnerseducation.com · ibrahim@learnerseducation.com
+          </p>
+        </div>
       </section>
     </main>
   );

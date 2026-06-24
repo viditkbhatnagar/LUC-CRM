@@ -1,76 +1,115 @@
 /* ───────────────────────────────────────────────────────────────
- * Design tokens — Learners Education brand (07-FRONTEND-SPEC §1).
- * SINGLE SOURCE OF TRUTH FOR COLOR. Brand green sampled from
- * learnerseducation.com. To fine-tune, edit ONLY the --brand-* lines.
+ * Design tokens — Learners Education · "Refined SaaS" system.
+ * Light, airy workspace · deep dark rail · precision green accent.
+ * SINGLE SOURCE OF TRUTH FOR COLOR. Brand green = #1D921E.
  * ─────────────────────────────────────────────────────────────── */
 :root {
-  /* Surfaces & ink (neutral base, faint green tint) */
-  --canvas: #eef2ee;
+  /* Neutrals — calibrated near-neutrals with a whisper of green */
+  --canvas: #f4f6f4;
   --surface: #ffffff;
-  --surface-2: #f4f9f5;
-  --surface-3: #eaf2ec;
-  --ink: #10231a;
-  --ink-2: #41544a;
-  --ink-3: #73857b;
-  --line: #e0e9e3;
-  --line-2: #cfdcd4;
+  --surface-2: #fafbfa;
+  --surface-3: #eef2ef;
+  --surface-inset: #f3f6f4;
+  --ink: #0d1512;
+  --ink-2: #495751;
+  --ink-3: #8b958f;
+  --ink-4: #aab2ad;
+  --line: #e8ece9;
+  --line-2: #dde2de;
 
-  /* Learners Education brand — green (PRIMARY) */
+  /* Brand — Learners Education green (primary, used as precision accent) */
   --brand: #1d921e;
   --brand-2: #167a18;
-  --brand-3: #43a534;
-  --brand-w: #e7f6e8;
+  --brand-3: #34b13a;
+  --brand-ink: #0f3d18;
+  --brand-w: #e8f6e9;
+  --brand-w2: #d7efd8;
+  --brand-glow: rgba(29, 146, 30, 0.18);
 
-  /* Deep CTA / sidebar base */
-  --dark: #0f211a;
-  --dark-2: #1b3327;
+  /* Deep rail / dark surfaces */
+  --dark: #0a120e;
+  --dark-2: #0e1a14;
+  --dark-3: #13231b;
+  --dark-line: rgba(255, 255, 255, 0.08);
+  --dark-ink: #c9d6cd;
+  --dark-ink-2: #7e9587;
 
-  /* Functional state colors (CRM status semantics) */
-  --teal: #0e9f8f;
-  --teal-2: #0b7d70;
-  --teal-w: #e5f6f3;
-  --rose: #e11d48;
-  --rose-w: #fff1f3;
-  --amber: #c2740a;
-  --amber-w: #fdf6e9;
-  --emerald: #059669;
-  --emerald-w: #e8faf1;
-  --blue: #2563eb;
-  --blue-w: #eef4ff;
-  --violet: #7c3aed;
-  --violet-w: #f3eeff;
+  /* Functional state colors (muted, refined — not candy) */
+  --rose: #e23b54;
+  --rose-w: #fdecef;
+  --amber: #b9740c;
+  --amber-w: #fbf2e3;
+  --emerald: #0a9d5a;
+  --emerald-w: #e7f7ef;
+  --blue: #2f6bf0;
+  --blue-w: #ecf1fe;
+  --violet: #7a5af0;
+  --violet-w: #f1edfe;
+  --teal: #0c9c8e;
+  --teal-w: #e6f6f4;
 
-  --shadow: 0 10px 30px rgba(16, 40, 26, 0.1);
-  --shadow-sm: 0 2px 10px rgba(16, 40, 26, 0.06);
-  --r: 14px;
-  --r-sm: 10px;
-  --r-lg: 20px;
+  /* Elevation — soft, layered (modern SaaS) */
+  --shadow-xs: 0 1px 2px rgba(13, 21, 18, 0.05);
+  --shadow-sm: 0 1px 3px rgba(13, 21, 18, 0.06), 0 1px 2px rgba(13, 21, 18, 0.04);
+  --shadow: 0 6px 16px -6px rgba(13, 21, 18, 0.1), 0 2px 6px -2px rgba(13, 21, 18, 0.06);
+  --shadow-lg: 0 24px 60px -18px rgba(13, 21, 18, 0.22), 0 8px 24px -12px rgba(13, 21, 18, 0.12);
+  --ring: 0 0 0 3px var(--brand-glow);
+
+  /* Radius — modern, tighter */
+  --r: 12px;
+  --r-sm: 8px;
+  --r-xs: 6px;
+  --r-lg: 18px;
+  --r-pill: 999px;
+
+  /* Type */
   --display: 'Space Grotesk', 'Inter', system-ui, sans-serif;
-  --body: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  --body: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --mono: 'Space Grotesk', ui-monospace, 'SF Mono', Menlo, monospace;
+
+  /* Motion */
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --dur-fast: 140ms;
+  --dur: 240ms;
+  --dur-slow: 460ms;
+
+  --sidebar-w: 256px;
+  --topbar-h: 64px;
 }
 
-/* ── Base reset / typography ───────────────────────────────────── */
+/* ── Reset / base ──────────────────────────────────────────────── */
 *,
 *::before,
 *::after {
   box-sizing: border-box;
 }
-
 html,
 body,
 #root {
   height: 100%;
   margin: 0;
 }
-
 body {
   font-family: var(--body);
   background: var(--canvas);
   color: var(--ink);
-  -webkit-font-smoothing: antialiased;
+  font-size: 14px;
   line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-feature-settings: 'cv11' 1, 'ss01' 1;
+  text-rendering: optimizeLegibility;
 }
-
+/* Tabular figures everywhere numbers matter (CRM is number-dense) */
+.num,
+.value,
+.kpi-num,
+table td,
+.tag {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: 'tnum' 1;
+}
 h1,
 h2,
 h3,
@@ -78,22 +117,46 @@ h4 {
   font-family: var(--display);
   color: var(--ink);
   margin: 0 0 0.4em;
-  line-height: 1.2;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  font-weight: 600;
 }
-
 a {
   color: var(--brand-2);
   text-decoration: none;
 }
-
 button {
   font-family: var(--body);
   cursor: pointer;
 }
-
+::selection {
+  background: var(--brand-w2);
+  color: var(--brand-ink);
+}
 :focus-visible {
-  outline: 2px solid var(--brand);
-  outline-offset: 2px;
+  outline: none;
+  box-shadow: var(--ring);
+  border-radius: var(--r-xs);
+}
+
+/* Refined scrollbars */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--line-2) transparent;
+}
+*::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+*::-webkit-scrollbar-thumb {
+  background: var(--line-2);
+  border-radius: 999px;
+  border: 3px solid transparent;
+  background-clip: content-box;
+}
+*::-webkit-scrollbar-thumb:hover {
+  background: var(--ink-4);
+  background-clip: content-box;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -101,6 +164,7 @@ button {
   *::before,
   *::after {
     animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
     transition-duration: 0.001ms !important;
   }
 }

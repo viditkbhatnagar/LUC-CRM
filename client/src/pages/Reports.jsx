@@ -1,17 +1,11 @@
 import { ResponsiveContainer, BarChart, Bar, XAxis, YAxis, Tooltip, Cell } from 'recharts';
 import Topbar from '../components/Topbar.jsx';
+import Stat from '../components/Stat.jsx';
 import { useAuth } from '../context/AuthContext.jsx';
 import {
   useKpis, useSourcePerformance, useFunnel, useStageAging,
   useLostReasons, useRule1Check, useCounsellorPerformance,
 } from '../hooks/useReports.js';
-
-const Kpi = ({ label, value, brand, danger }) => (
-  <div className="kpi">
-    <div className="label">{label}</div>
-    <div className="value" style={{ color: brand ? 'var(--brand)' : danger && value ? 'var(--rose)' : undefined }}>{value}</div>
-  </div>
-);
 
 function Bar100({ pct }) {
   return (
@@ -41,14 +35,14 @@ export default function Reports() {
       <div className="content stack" style={{ gap: '1.4rem' }}>
         {/* KPI strip */}
         <section className="grid-kpi">
-          <Kpi label="Total leads" value={k.total ?? '–'} brand />
-          <Kpi label="Active" value={k.active ?? '–'} />
-          <Kpi label="Meetings" value={k.meetings ?? '–'} />
-          <Kpi label="Offers out" value={k.offersOut ?? '–'} />
-          <Kpi label="Won" value={k.won ?? '–'} brand />
-          <Kpi label="Lost" value={k.lost ?? '–'} />
-          <Kpi label="Overdue" value={k.overdue ?? '–'} danger />
-          <Kpi label="Win rate" value={k.winRate != null ? `${k.winRate}%` : '–'} brand />
+          <Stat label="Total leads" value={k.total} brand />
+          <Stat label="Active" value={k.active} />
+          <Stat label="Meetings" value={k.meetings} />
+          <Stat label="Offers out" value={k.offersOut} />
+          <Stat label="Won" value={k.won} brand />
+          <Stat label="Lost" value={k.lost} />
+          <Stat label="Overdue" value={k.overdue} danger />
+          <Stat label="Win rate" value={k.winRate} suffix="%" brand />
         </section>
 
         {/* Rule-1 check */}

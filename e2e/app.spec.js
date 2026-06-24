@@ -2,10 +2,10 @@ import { test, expect } from '@playwright/test';
 
 const SHOTS = 'e2e/screenshots';
 
-async function login(page, email = 'admin@luc.edu') {
+async function login(page, email = 'admin@learnerseducation.com') {
   await page.goto('/login');
   await page.getByLabel('Email').fill(email);
-  await page.getByLabel('Password').fill('Passw0rd!');
+  await page.getByLabel('Password').fill('password123');
   await page.getByRole('button', { name: 'Sign in' }).click();
   await expect(page).toHaveURL('http://localhost:4600/');
 }
@@ -13,7 +13,7 @@ async function login(page, email = 'admin@luc.edu') {
 test.describe('LUC CRM · end-to-end', () => {
   test('login screen renders and authenticates', async ({ page }) => {
     await page.goto('/login');
-    await expect(page.getByRole('heading', { name: 'LUC CRM' })).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Welcome back' })).toBeVisible();
     await page.screenshot({ path: `${SHOTS}/01-login.png`, fullPage: true });
     await login(page);
     await expect(page.getByRole('heading', { name: /Welcome/ })).toBeVisible();
@@ -60,7 +60,7 @@ test.describe('LUC CRM · end-to-end', () => {
   });
 
   test('captures a new lead and lands on its workspace', async ({ page }) => {
-    await login(page, 'sara@luc.edu');
+    await login(page, 'sara@learnerseducation.com');
     await page.getByRole('link', { name: 'New Lead' }).click();
     await expect(page.getByRole('heading', { name: 'Lead details' })).toBeVisible();
     const stamp = Date.now();

@@ -1,6 +1,7 @@
 import { useMemo } from 'react';
 import Topbar from '../components/Topbar.jsx';
 import LeadCard from '../components/LeadCard.jsx';
+import Stat from '../components/Stat.jsx';
 import { useLeads } from '../hooks/useLeads.js';
 import { useWorkflow } from '../hooks/useWorkflow.js';
 import { useAuth } from '../context/AuthContext.jsx';
@@ -44,10 +45,10 @@ export default function Dashboard() {
     <>
       <Topbar title={`Welcome, ${user?.name?.split(' ')[0] || ''}`} subtitle="Today's priority queue" />
       <div className="content">
-        <div className="grid-kpi" style={{ marginBottom: '1.4rem' }}>
-          <div className="kpi"><div className="label">Active leads</div><div className="value brand">{stats.active}</div></div>
-          <div className="kpi"><div className="label">Overdue</div><div className="value" style={{ color: stats.overdue ? 'var(--rose)' : 'var(--ink)' }}>{stats.overdue}</div></div>
-          <div className="kpi"><div className="label">Hot (≥80)</div><div className="value">{stats.hot}</div></div>
+        <div className="grid-kpi" style={{ marginBottom: '1.6rem' }}>
+          <Stat label="Active leads" value={stats.active} brand />
+          <Stat label="Overdue" value={stats.overdue} danger />
+          <Stat label="Hot · ≥80" value={stats.hot} />
         </div>
 
         <h2 className="section-title">Priority queue · overdue first, then score</h2>
