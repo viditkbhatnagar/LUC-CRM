@@ -74,8 +74,9 @@ export default function Login() {
         </form>
 
         <p className="hint">
-          Seeded accounts (password <strong>Passw0rd!</strong>):<br />
-          admin@luc.edu · mariam@luc.edu (team lead) · sara@luc.edu · nadia@luc.edu · ibrahim@luc.edu
+          Seeded accounts (password <strong>password123</strong>):<br />
+          admin@learnerseducation.com · mariam@learnerseducation.com (team lead) ·
+          sara@learnerseducation.com · nadia@learnerseducation.com · ibrahim@learnerseducation.com
         </p>
       </section>
     </main>

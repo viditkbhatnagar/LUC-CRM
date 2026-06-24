@@ -13,7 +13,7 @@ import { generateLeadCode, generateAdmissionId, generateReceiptNo } from '../ser
 import { normalizePhone, normalizeEmail } from '../lib/normalize.js';
 import { computeScore, stageBySlug, stageIndex } from '../workflow/stateMachine.js';
 
-const SEED_PASSWORD = 'Passw0rd!'; // all seeded users; see RUNBOOK.
+const SEED_PASSWORD = 'password123'; // all seeded users; see RUNBOOK.
 
 function assertSafeDb() {
   const name = mongoose.connection.name || '';
@@ -61,11 +61,11 @@ async function run() {
   const mk = (name, email, role) => ({ name, email, passwordHash, role, active: true });
 
   const [admin, lead1, sara, nadia, ibrahim] = await User.create([
-    mk('Aisha Admin', 'admin@luc.edu', 'admin'),
-    mk('Mariam Lead', 'mariam@luc.edu', 'team_lead'),
-    mk('Sara', 'sara@luc.edu', 'counsellor'),
-    mk('Nadia', 'nadia@luc.edu', 'counsellor'),
-    mk('Ibrahim', 'ibrahim@luc.edu', 'counsellor'),
+    mk('Aisha Admin', 'admin@learnerseducation.com', 'admin'),
+    mk('Mariam Lead', 'mariam@learnerseducation.com', 'team_lead'),
+    mk('Sara', 'sara@learnerseducation.com', 'counsellor'),
+    mk('Nadia', 'nadia@learnerseducation.com', 'counsellor'),
+    mk('Ibrahim', 'ibrahim@learnerseducation.com', 'counsellor'),
   ]);
 
   // ── Sample lead specs ─────────────────────────────────────────────────

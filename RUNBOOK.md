@@ -53,9 +53,9 @@ NODE_ENV=production npm run start    # API + SPA on http://localhost:4000
 ```
 
 ## Seed accounts
-All seeded users share the password **`Passw0rd!`**:
-- `admin@luc.edu` (admin) · `mariam@luc.edu` (team lead)
-- `sara@luc.edu` · `nadia@luc.edu` · `ibrahim@luc.edu` (counsellors)
+All seeded users share the password **`password123`**:
+- `admin@learnerseducation.com` (admin) · `mariam@learnerseducation.com` (team lead)
+- `sara@learnerseducation.com` · `nadia@learnerseducation.com` · `ibrahim@learnerseducation.com` (counsellors)
 
 Re-running `npm run seed` **wipes** the `luc_crm_dev` collections and reloads
 the sample data. Do not run it against production once real data exists.
