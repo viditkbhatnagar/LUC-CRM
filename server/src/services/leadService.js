@@ -9,6 +9,7 @@ import { generateLeadCode, nextAssignIndex } from './counterService.js';
 import { computeDueAt } from './slaService.js';
 import { createActionTask } from './taskService.js';
 import { logActivity } from './activityService.js';
+import { runAutomations } from './automationEngine.js';
 import { Conflict, NotFound, Forbidden } from '../lib/errors.js';
 
 const MAX_LIMIT = 100;
@@ -78,7 +79,7 @@ export async function createLead(input, actor, { force = false } = {}) {
   await createActionTask(lead, 'first_contact', slaDueAt);
   await lead.save();
 
-  // Audit + acknowledgement (M5 routes acknowledge through the messaging adapter).
+  // Audit: creation + first-contact task (Rule 1 infrastructure).
   await logActivity(lead._id, {
     type: 'system',
     message: `Lead created at New Lead (${leadCode})`,
@@ -87,15 +88,13 @@ export async function createLead(input, actor, { force = false } = {}) {
     meta: { duplicateOf: lead.duplicateOf || undefined },
   });
   await logActivity(lead._id, {
-    type: 'automation',
-    message: 'Acknowledgement sent to prospect',
-    actorLabel: 'automation',
-  });
-  await logActivity(lead._id, {
     type: 'task',
     message: `First-contact task created — due ${slaDueAt.toISOString()}`,
     actorLabel: 'system',
   });
+
+  // onCreate automations (acknowledgement via the messaging adapter → activity).
+  await runAutomations(lead, 'create', { actor });
 
   return lead;
 }
