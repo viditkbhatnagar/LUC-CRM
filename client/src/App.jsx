@@ -4,6 +4,7 @@ import Dashboard from './pages/Dashboard.jsx';
 import Pipeline from './pages/Pipeline.jsx';
 import Capture from './pages/Capture.jsx';
 import LeadWorkspace from './pages/LeadWorkspace.jsx';
+import Reports from './pages/Reports.jsx';
 import Placeholder from './pages/Placeholder.jsx';
 import Layout from './components/Layout.jsx';
 import RequireAuth from './components/RequireAuth.jsx';
@@ -25,7 +26,7 @@ export default function App() {
         <Route path="/pipeline" element={<Pipeline />} />
         <Route path="/capture" element={<Capture />} />
         <Route path="/leads/:id" element={<LeadWorkspace />} />
-        <Route path="/reports" element={<Placeholder title="Dashboards" milestone="M6" />} />
+        <Route path="/reports" element={<Reports />} />
         <Route path="/flow" element={<Placeholder title="Flow Map" milestone="M7" />} />
         <Route path="/automation" element={<Placeholder title="Automation Matrix" milestone="M7" />} />
       </Route>

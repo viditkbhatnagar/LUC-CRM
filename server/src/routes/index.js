@@ -6,6 +6,7 @@ import authRoutes from './auth.routes.js';
 import metaRoutes from './meta.routes.js';
 import leadsRoutes from './leads.routes.js';
 import notificationsRoutes from './notifications.routes.js';
+import reportsRoutes from './reports.routes.js';
 
 const apiRouter = Router();
 
@@ -21,5 +22,8 @@ apiRouter.use('/leads', leadsRoutes);
 
 // M5 — notifications (escalations, assignments, breaches).
 apiRouter.use('/notifications', notificationsRoutes);
+
+// M6 — dashboards & reports.
+apiRouter.use('/reports', reportsRoutes);
 
 export default apiRouter;
