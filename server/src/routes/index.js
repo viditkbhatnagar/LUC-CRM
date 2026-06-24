@@ -3,6 +3,8 @@
 //  notifications M5 · reports M6 · webhooks M7). Keep this the single mount point.
 import { Router } from 'express';
 import authRoutes from './auth.routes.js';
+import metaRoutes from './meta.routes.js';
+import leadsRoutes from './leads.routes.js';
 
 const apiRouter = Router();
 
@@ -11,5 +13,9 @@ apiRouter.get('/health', (_req, res) => res.json({ ok: true }));
 
 // M2 — authentication & user management.
 apiRouter.use('/auth', authRoutes);
+
+// M3 — workflow meta (single source of truth for the client) + lead core.
+apiRouter.use('/meta', metaRoutes);
+apiRouter.use('/leads', leadsRoutes);
 
 export default apiRouter;

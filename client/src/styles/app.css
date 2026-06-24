@@ -266,9 +266,141 @@
 .spinner { color: var(--ink-3); padding: 2rem; text-align: center; }
 .empty { color: var(--ink-3); padding: 2rem; text-align: center; border: 1px dashed var(--line-2); border-radius: var(--r); }
 
+/* ── Lead card (kanban + queue) ─────────────────────────────────── */
+.lead-card {
+  display: block;
+  width: 100%;
+  text-align: left;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--brand-3);
+  border-radius: var(--r-sm);
+  padding: 0.75rem 0.85rem;
+  box-shadow: var(--shadow-sm);
+  cursor: pointer;
+  transition: transform 90ms, box-shadow 150ms, border-color 150ms;
+}
+.lead-card:hover { transform: translateY(-2px); box-shadow: var(--shadow); border-left-color: var(--brand); }
+.lead-card-name { font-size: 0.95rem; }
+.lead-card-meta { font-size: 0.76rem; margin-top: 2px; }
+.lead-card-next {
+  display: flex; justify-content: space-between; align-items: center;
+  gap: 0.5rem; margin-top: 0.6rem; font-size: 0.78rem;
+}
+.lead-card-owner { font-size: 0.74rem; margin-top: 0.4rem; }
+.due { color: var(--ink-3); font-weight: 600; }
+.due-over { color: var(--rose); font-weight: 700; }
+
+/* ── Kanban board ───────────────────────────────────────────────── */
+.kanban { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; align-items: start; }
+.kcol {
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+  padding: 0.7rem;
+  min-height: 120px;
+}
+.kcol-head {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 0.7rem; padding: 0 0.2rem;
+}
+.kcol-head .name { font-family: var(--display); font-weight: 600; font-size: 0.9rem; }
+.kcol-head .count {
+  font-size: 0.72rem; font-weight: 700; background: var(--surface); color: var(--ink-2);
+  border: 1px solid var(--line); border-radius: 999px; padding: 0.1rem 0.5rem;
+}
+.kcol-body { display: grid; gap: 0.6rem; }
+.kcol-accent { height: 3px; border-radius: 3px; margin-bottom: 0.6rem; }
+.exited-strip { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 0.6rem; }
+
+/* ── Priority queue (dashboard) ─────────────────────────────────── */
+.queue { display: grid; gap: 0.55rem; }
+
+/* ── KPI cards ──────────────────────────────────────────────────── */
+.kpi {
+  background: var(--surface); border: 1px solid var(--line); border-radius: var(--r);
+  padding: 0.9rem 1rem; box-shadow: var(--shadow-sm);
+}
+.kpi .label { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--ink-3); }
+.kpi .value { font-family: var(--display); font-size: 1.7rem; font-weight: 700; margin-top: 2px; }
+.kpi .value.brand { color: var(--brand); }
+
+/* ── Lead workspace ─────────────────────────────────────────────── */
+.ws-grid { display: grid; grid-template-columns: 1fr 340px; gap: 1.2rem; align-items: start; }
+.ws-main { display: grid; gap: 1.2rem; min-width: 0; }
+.ws-side { display: grid; gap: 1.2rem; }
+
+.rail { display: flex; gap: 4px; overflow-x: auto; padding: 0.3rem 0 0.6rem; }
+.rail-node {
+  flex: 0 0 auto; font-size: 0.7rem; font-weight: 600; padding: 0.35rem 0.55rem;
+  border-radius: 999px; border: 1px solid var(--line-2); background: var(--surface);
+  color: var(--ink-3); white-space: nowrap; cursor: pointer;
+}
+.rail-node.done { background: var(--brand-w); color: var(--brand-2); border-color: var(--brand-w); }
+.rail-node.current { background: var(--brand); color: #fff; border-color: var(--brand); }
+.rail-node:disabled { cursor: not-allowed; opacity: 0.7; }
+
+.deck { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.deck-row { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 0.5rem; }
+.deck-row .label { font-size: 0.72rem; color: var(--ink-3); width: 100%; text-transform: uppercase; letter-spacing: 0.05em; }
+
+.gate-list { display: grid; gap: 0.35rem; }
+.gate-item { display: flex; align-items: center; gap: 0.5rem; font-size: 0.82rem; }
+.gate-dot { width: 16px; height: 16px; border-radius: 50%; display: grid; place-items: center; font-size: 10px; font-weight: 700; }
+
+.timeline { display: grid; gap: 0; position: relative; }
+.tl-item { display: grid; grid-template-columns: 22px 1fr; gap: 0.6rem; padding: 0.5rem 0; border-bottom: 1px dashed var(--line); }
+.tl-item:last-child { border-bottom: none; }
+.tl-dot { width: 11px; height: 11px; border-radius: 50%; margin-top: 4px; background: var(--brand-3); }
+.tl-dot.system { background: var(--ink-3); }
+.tl-dot.automation { background: var(--violet); }
+.tl-dot.stage_change { background: var(--brand); }
+.tl-dot.note { background: var(--blue); }
+.tl-msg { font-size: 0.84rem; }
+.tl-meta { font-size: 0.72rem; color: var(--ink-3); }
+
+.confidence-bar { height: 8px; border-radius: 999px; background: var(--surface-3); overflow: hidden; }
+.confidence-bar > span { display: block; height: 100%; background: var(--brand); }
+
+.accordion-item { border-bottom: 1px solid var(--line); }
+.accordion-head { width: 100%; text-align: left; background: none; border: none; padding: 0.6rem 0; font-weight: 600; font-size: 0.86rem; display: flex; justify-content: space-between; }
+.accordion-body { padding: 0 0 0.7rem; font-size: 0.82rem; color: var(--ink-2); }
+
+/* ── Modal ──────────────────────────────────────────────────────── */
+.modal-backdrop {
+  position: fixed; inset: 0; background: rgba(15, 33, 26, 0.55);
+  display: grid; place-items: center; z-index: 50; padding: 1rem;
+}
+.modal { background: var(--surface); border-radius: var(--r-lg); box-shadow: var(--shadow); padding: 1.5rem; width: 100%; max-width: 460px; }
+.modal h3 { margin-bottom: 1rem; }
+
+/* ── Toasts ─────────────────────────────────────────────────────── */
+.toast-stack { position: fixed; bottom: 1.2rem; right: 1.2rem; display: grid; gap: 0.5rem; z-index: 100; }
+.toast {
+  background: var(--dark); color: #fff; padding: 0.7rem 1rem; border-radius: var(--r-sm);
+  box-shadow: var(--shadow); font-size: 0.86rem; cursor: pointer; max-width: 320px;
+  border-left: 3px solid var(--brand-3);
+}
+.toast-success { border-left-color: var(--emerald); }
+.toast-error { border-left-color: var(--rose); }
+.toast-info { border-left-color: var(--brand-3); }
+
+/* ── Tables (reports) ───────────────────────────────────────────── */
+.table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+.table th { text-align: left; color: var(--ink-3); font-weight: 600; font-size: 0.74rem; text-transform: uppercase; letter-spacing: 0.04em; padding: 0.5rem 0.6rem; border-bottom: 1px solid var(--line); }
+.table td { padding: 0.55rem 0.6rem; border-bottom: 1px solid var(--line); }
+.table tr:last-child td { border-bottom: none; }
+.bar-track { height: 8px; background: var(--surface-3); border-radius: 999px; overflow: hidden; min-width: 80px; }
+.bar-fill { height: 100%; background: var(--brand); }
+
+@media (max-width: 1100px) {
+  .ws-grid { grid-template-columns: 1fr; }
+  .kanban { grid-template-columns: repeat(2, 1fr); }
+}
 @media (max-width: 880px) {
   .app-shell { grid-template-columns: 1fr; }
   .sidebar { position: static; height: auto; flex-direction: row; flex-wrap: wrap; align-items: center; }
   .legend { display: none; }
   .form-grid { grid-template-columns: 1fr; }
+  .kanban { grid-template-columns: 1fr; }
 }

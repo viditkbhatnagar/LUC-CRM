@@ -435,6 +435,39 @@ export const LIFECYCLE_AUTOMATIONS = {
   onExitLost: ['stopFollowups'],
 };
 
+// Default action-task title per task type (Rule 1 next-action labels).
+export const TASK_DEFS = {
+  first_contact: 'First contact (call / WhatsApp)',
+  follow_up: 'Follow up with the lead',
+  qualify: 'Qualify the lead',
+  schedule_meeting: 'Schedule the meeting',
+  meeting_prep: 'Prepare for the meeting',
+  post_meeting: 'Post-meeting follow-up',
+  offer_follow_up: 'Offer follow-up',
+  collect_docs: 'Collect required documents',
+  verify_docs: 'Verify submitted documents',
+  payment_follow_up: 'Payment follow-up',
+  reschedule: 'Reschedule meeting',
+  reengage: 'Re-engage before next intake',
+};
+
+// The action-task type created when a lead enters each stage (drives Rule 1).
+export const STAGE_ACTION_TASK = {
+  new_lead: 'first_contact',
+  contact_attempted: 'follow_up',
+  connected_intro: 'qualify',
+  qualified: 'schedule_meeting',
+  meeting_to_schedule: 'schedule_meeting',
+  meeting_scheduled: 'meeting_prep',
+  meeting_done: 'post_meeting',
+  post_meeting_followup: 'follow_up',
+  offer_sent: 'offer_follow_up',
+  offer_accepted_docs_pending: 'collect_docs',
+  docs_received_verification: 'verify_docs',
+  payment_pending: 'payment_follow_up',
+  // admission_won: no further action task
+};
+
 // ── Lead scoring (02 §8) — deterministic, rule-based. ─────────────────────
 export const SCORING = {
   base: { referralOrGoogle: 68, highInterest: 66, other: 58, fallback: 60 },
