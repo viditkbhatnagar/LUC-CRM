@@ -25,5 +25,6 @@ userSchema.set('toJSON', {
   },
 });
 
-export const User = mongoose.model('User', userSchema);
+// Guard against re-registration under test module isolation / hot reload.
+export const User = mongoose.models.User || mongoose.model('User', userSchema);
 export default User;

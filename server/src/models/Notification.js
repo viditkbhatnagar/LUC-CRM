@@ -23,5 +23,6 @@ notificationSchema.index(
 
 notificationSchema.set('toJSON', { virtuals: true });
 
-export const Notification = mongoose.model('Notification', notificationSchema);
+export const Notification =
+  mongoose.models.Notification || mongoose.model('Notification', notificationSchema);
 export default Notification;

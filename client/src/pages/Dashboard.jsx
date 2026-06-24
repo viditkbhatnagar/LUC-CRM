@@ -1,41 +1,33 @@
-import { useQuery } from '@tanstack/react-query';
+import { useAuth } from '../context/AuthContext.jsx';
 
-// M0 placeholder dashboard — proves the SPA renders and can reach the API.
-// Real KPI strip + priority queue land in M3/M6.
+// M2 dashboard: proves the authenticated session. KPI strip + priority queue
+// + full layout land in M3/M6.
 export default function Dashboard() {
-  const { data, isLoading, isError } = useQuery({
-    queryKey: ['health'],
-    queryFn: async () => {
-      const res = await fetch('/api/health');
-      if (!res.ok) throw new Error('health failed');
-      return res.json();
-    },
-  });
+  const { user, logout } = useAuth();
 
   return (
     <main style={{ maxWidth: 880, margin: '0 auto', padding: '3rem 1.5rem' }}>
-      <header style={{ marginBottom: '2rem' }}>
-        <h1 style={{ color: 'var(--brand)' }}>LUC CRM</h1>
-        <p style={{ color: 'var(--ink-2)' }}>
-          In-house lead-to-admission CRM · Learners Education
-        </p>
-      </header>
+      <div className="spread" style={{ marginBottom: '2rem' }}>
+        <div>
+          <h1 style={{ color: 'var(--brand)', marginBottom: 4 }}>LUC CRM</h1>
+          <p className="muted">In-house lead-to-admission CRM · Learners Education</p>
+        </div>
+        <div className="row">
+          <span className="avatar">{user?.name?.[0]?.toUpperCase()}</span>
+          <div>
+            <strong style={{ fontSize: 14 }}>{user?.name}</strong>
+            <div className="muted" style={{ fontSize: 12 }}>{user?.role}</div>
+          </div>
+          <button className="btn btn-ghost btn-sm" onClick={logout}>Sign out</button>
+        </div>
+      </div>
 
-      <section
-        style={{
-          background: 'var(--surface)',
-          padding: '1.5rem',
-          borderRadius: 'var(--r)',
-          boxShadow: 'var(--shadow-sm)',
-          border: '1px solid var(--line)',
-        }}
-      >
-        <h2 style={{ fontSize: 16 }}>API status</h2>
-        {isLoading && <p style={{ color: 'var(--ink-3)' }}>Checking…</p>}
-        {isError && <p style={{ color: 'var(--rose)' }}>API unreachable</p>}
-        {data?.ok && (
-          <p style={{ color: 'var(--emerald)' }}>● Healthy — same-origin API responding.</p>
-        )}
+      <section className="card">
+        <h3>Signed in</h3>
+        <p className="muted">
+          Welcome, {user?.name}. Pipeline, capture, workspace, dashboards and the flow/automation
+          references are wired up in M3–M7.
+        </p>
       </section>
     </main>
   );

@@ -32,5 +32,5 @@ taskSchema.index({ kind: 1, status: 1, sentAt: 1 }); // reminder dispatch
 
 taskSchema.set('toJSON', { virtuals: true });
 
-export const Task = mongoose.model('Task', taskSchema);
+export const Task = mongoose.models.Task || mongoose.model('Task', taskSchema);
 export default Task;

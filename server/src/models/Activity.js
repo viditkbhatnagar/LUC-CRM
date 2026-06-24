@@ -18,5 +18,5 @@ activitySchema.index({ lead: 1, createdAt: -1 });
 
 activitySchema.set('toJSON', { virtuals: true });
 
-export const Activity = mongoose.model('Activity', activitySchema);
+export const Activity = mongoose.models.Activity || mongoose.model('Activity', activitySchema);
 export default Activity;

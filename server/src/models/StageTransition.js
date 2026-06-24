@@ -23,5 +23,6 @@ stageTransitionSchema.index({ exitReason: 1 });
 
 stageTransitionSchema.set('toJSON', { virtuals: true });
 
-export const StageTransition = mongoose.model('StageTransition', stageTransitionSchema);
+export const StageTransition =
+  mongoose.models.StageTransition || mongoose.model('StageTransition', stageTransitionSchema);
 export default StageTransition;

@@ -111,5 +111,5 @@ leadSchema.index({ createdAt: -1 });
 
 leadSchema.set('toJSON', { virtuals: true });
 
-export const Lead = mongoose.model('Lead', leadSchema);
+export const Lead = mongoose.models.Lead || mongoose.model('Lead', leadSchema);
 export default Lead;
