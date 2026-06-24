@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useUpdateDocuments, useUploadDocument, useConfirmPayment } from '../hooks/useLeads.js';
 import { useAuth } from '../context/AuthContext.jsx';
 import { useToast } from '../context/ToastContext.jsx';
-import { ApiError } from '../lib/api.js';
+import { api, ApiError } from '../lib/api.js';
 import { formatDate } from '../lib/format.js';
 
 // Close-phase panel: document checklist/verify (+ upload via storage adapter)
@@ -48,6 +48,16 @@ export default function DocsPaymentPanel({ lead }) {
 
   const paid = lead.payment?.status === 'paid';
 
+  // Open a stored document via a freshly-signed URL (presigned URLs expire).
+  const openDoc = async (key) => {
+    try {
+      const { url } = await api.get(`/leads/${lead._id}/documents/url?key=${encodeURIComponent(key)}`);
+      window.open(url, '_blank', 'noopener');
+    } catch (err) {
+      toast(err instanceof ApiError ? err.message : 'Could not open document', { type: 'error' });
+    }
+  };
+
   return (
     <div className="card">
       <h3>Documents & payment</h3>
@@ -69,7 +79,18 @@ export default function DocsPaymentPanel({ lead }) {
       </div>
       {(lead.documents || []).length > 0 && (
         <ul style={{ fontSize: 12, paddingLeft: 16, margin: '0.3rem 0 0.8rem' }}>
-          {lead.documents.map((d, i) => <li key={i}>{d.name} <span className="muted">· {formatDate(d.uploadedAt)}</span></li>)}
+          {lead.documents.map((d, i) => (
+            <li key={i}>
+              <button
+                type="button"
+                onClick={() => openDoc(d.key)}
+                style={{ background: 'none', border: 'none', padding: 0, color: 'var(--brand-2)', cursor: 'pointer', textDecoration: 'underline', font: 'inherit' }}
+              >
+                {d.name}
+              </button>
+              <span className="muted"> · {formatDate(d.uploadedAt)}</span>
+            </li>
+          ))}
         </ul>
       )}
 

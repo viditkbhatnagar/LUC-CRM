@@ -3,7 +3,8 @@
 // can never set it). Files go through the storage adapter (stub → S3 later).
 import { loadOwnedLead } from './leadService.js';
 import { logActivity } from './activityService.js';
-import { upload } from '../adapters/storage.js';
+import { upload, getSignedUrl } from '../adapters/storage.js';
+import { NotFound } from '../lib/errors.js';
 
 export async function updateDocuments(leadId, body, user) {
   const lead = await loadOwnedLead(leadId, user); // owner/team_lead/admin
@@ -68,4 +69,13 @@ export async function uploadDocument(leadId, file, user) {
   return lead;
 }
 
-export default { updateDocuments, uploadDocument };
+// Fresh download URL for a stored document (presigned URLs expire; we keep the
+// key and re-sign on demand). Verifies the key belongs to this lead.
+export async function getDocumentUrl(leadId, key, user) {
+  const lead = await loadOwnedLead(leadId, user);
+  const doc = (lead.documents || []).find((d) => d.key === key);
+  if (!doc) throw NotFound('Document not found on this lead');
+  return getSignedUrl(key);
+}
+
+export default { updateDocuments, uploadDocument, getDocumentUrl };

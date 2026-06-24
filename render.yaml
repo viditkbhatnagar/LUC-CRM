@@ -18,7 +18,9 @@ services:
       - key: MESSAGING_DRIVER
         value: console
       - key: STORAGE_DRIVER
-        value: stub
+        value: s3
+      - key: AWS_REGION
+        value: us-east-1
       - key: JWT_EXPIRES_IN
         value: 8h
       - key: SEED_ON_BOOT
@@ -30,6 +32,12 @@ services:
       - key: INGEST_API_KEY
         sync: false
       - key: CLIENT_ORIGIN
+        sync: false
+      - key: AWS_S3_BUCKET
+        sync: false
+      - key: AWS_ACCESS_KEY_ID
+        sync: false
+      - key: AWS_SECRET_ACCESS_KEY
         sync: false
 
   # ── Cron job: SLA / automation sweep every 15 minutes ──

@@ -18,7 +18,7 @@ import {
   reassignOwner,
 } from '../services/leadService.js';
 import { move } from '../services/transitionService.js';
-import { updateDocuments, uploadDocument } from '../services/documentService.js';
+import { updateDocuments, uploadDocument, getDocumentUrl } from '../services/documentService.js';
 import { confirmPayment } from '../services/paymentService.js';
 import { logActivity, getActivities } from '../services/activityService.js';
 import { Lead } from '../models/Lead.js';
@@ -102,6 +102,17 @@ router.post('/:id/documents/upload', requireAuth, uploadMw.single('file'), async
     if (!req.file) throw BadRequest('No file uploaded (field "file")');
     const lead = await uploadDocument(req.params.id, req.file, req.user);
     res.status(201).json({ lead });
+  } catch (err) {
+    next(err);
+  }
+});
+
+// GET /api/leads/:id/documents/url?key=... — fresh presigned download URL.
+router.get('/:id/documents/url', requireAuth, async (req, res, next) => {
+  try {
+    if (!req.query.key) throw BadRequest('key query param required');
+    const url = await getDocumentUrl(req.params.id, String(req.query.key), req.user);
+    res.json({ url });
   } catch (err) {
     next(err);
   }
