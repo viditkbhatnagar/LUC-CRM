@@ -1,0 +1,52 @@
+# Render Blueprint — one Web Service (API + built SPA) + one Cron Job (SLA sweep).
+# Secrets (sync:false) are set in the Render dashboard, never committed.
+services:
+  # ── Web service: Express API + built React SPA (same origin) ──
+  - type: web
+    name: luc-crm
+    runtime: node
+    region: oregon
+    plan: free
+    buildCommand: npm install && npm run build
+    startCommand: npm run start
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: COOKIE_SECURE
+        value: 'true'
+      - key: MESSAGING_DRIVER
+        value: console
+      - key: STORAGE_DRIVER
+        value: stub
+      - key: JWT_EXPIRES_IN
+        value: 8h
+      - key: SEED_ON_BOOT
+        value: 'false'
+      - key: MONGODB_URI
+        sync: false
+      - key: JWT_SECRET
+        sync: false
+      - key: INGEST_API_KEY
+        sync: false
+      - key: CLIENT_ORIGIN
+        sync: false
+
+  # ── Cron job: SLA / automation sweep every 15 minutes ──
+  - type: cron
+    name: luc-crm-sla-sweep
+    runtime: node
+    region: oregon
+    plan: free
+    schedule: '*/15 * * * *'
+    buildCommand: npm install
+    startCommand: node server/src/jobs/slaSweep.js
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: MESSAGING_DRIVER
+        value: console
+      - key: STORAGE_DRIVER
+        value: stub
+      - key: MONGODB_URI
+        sync: false

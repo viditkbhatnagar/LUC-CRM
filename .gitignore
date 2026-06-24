@@ -1,0 +1,36 @@
+# dependencies
+node_modules/
+**/node_modules/
+
+# env & secrets (NEVER commit)
+.env
+.env.local
+**/.env
+**/.env.local
+!**/.env.example
+
+# build output
+client/dist/
+dist/
+build/
+
+# test & coverage
+coverage/
+**/coverage/
+.nyc_output/
+
+# logs
+*.log
+npm-debug.log*
+logs/
+
+# os / editor
+.DS_Store
+.idea/
+.vscode/
+*.swp
+
+# misc
+*.pid
+.cache/
+tmp/
