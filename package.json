@@ -19,9 +19,11 @@
     "start": "node server/src/index.js",
     "seed": "node server/src/seed/seed.js",
     "test": "npm --workspace server run test",
+    "e2e": "playwright test",
     "sweep": "node server/src/jobs/slaSweep.js"
   },
   "devDependencies": {
+    "@playwright/test": "^1.61.1",
     "concurrently": "^9.1.0"
   }
 }

@@ -7,6 +7,7 @@ import metaRoutes from './meta.routes.js';
 import leadsRoutes from './leads.routes.js';
 import notificationsRoutes from './notifications.routes.js';
 import reportsRoutes from './reports.routes.js';
+import webhooksRoutes from './webhooks.routes.js';
 
 const apiRouter = Router();
 
@@ -25,5 +26,8 @@ apiRouter.use('/notifications', notificationsRoutes);
 
 // M6 — dashboards & reports.
 apiRouter.use('/reports', reportsRoutes);
+
+// Lead ingestion webhook (key-protected; not a user session).
+apiRouter.use('/webhooks', webhooksRoutes);
 
 export default apiRouter;

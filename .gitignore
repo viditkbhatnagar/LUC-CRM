@@ -19,6 +19,13 @@ coverage/
 **/coverage/
 .nyc_output/
 
+# playwright e2e artifacts
+e2e/screenshots/
+playwright-report/
+test-results/
+/blob-report/
+.last-run.json
+
 # logs
 *.log
 npm-debug.log*
