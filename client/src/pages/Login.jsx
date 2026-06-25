@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useNavigate, useLocation, Navigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext.jsx';
 import { ApiError } from '../lib/api.js';
+import Logo from '../components/Logo.jsx';
 
 export default function Login() {
   const { user, login, loading } = useAuth();
@@ -36,7 +37,7 @@ export default function Login() {
       {/* Brand panel */}
       <section className="auth-brand">
         <Link to="/welcome" className="mark" style={{ color: '#fff', position: 'relative', zIndex: 1 }}>
-          <span className="dot">L</span> LUC CRM
+          <Logo badge={30} />
         </Link>
         <div className="auth-hero">
           <h2>Every enquiry, worked to a <span className="hl">won admission</span>.</h2>

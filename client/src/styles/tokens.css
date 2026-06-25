@@ -1,73 +1,80 @@
 /* ───────────────────────────────────────────────────────────────
- * Design tokens — Learners Education · "Warm Studio" system.
- * Cream canvas · coral accent · deep-navy ink · green = success/won.
- * Inspired by Front: warm, bold, human. Display = Bricolage Grotesque.
+ * Design tokens — Learners Education · "Modern Studio" system.
+ * Light sage canvas · LUC GREEN primary · green-black rail ·
+ * vibrant green→lime gradients · warm score accents · bold display.
+ * BRAND COLOR = #1D921E (Learners Education green).
  * ─────────────────────────────────────────────────────────────── */
 :root {
-  /* Warm neutrals */
-  --canvas: #fbf6ef;
+  /* Neutrals — light, faint sage */
+  --canvas: #f2f6f1;
   --surface: #ffffff;
-  --surface-2: #fdf9f3;
-  --surface-3: #f5ece1;
-  --surface-warm: #fcf1e8;
-  --ink: #1b1c3a;
-  --ink-2: #565777;
-  --ink-3: #8d8ea6;
-  --ink-4: #b3b4c6;
-  --line: #efe6da;
-  --line-2: #e6d9c8;
+  --surface-2: #f8faf7;
+  --surface-3: #edf3ec;
+  --surface-warm: #eef6ee;
+  --ink: #0f1f16;
+  --ink-2: #45574d;
+  --ink-3: #7b897f;
+  --ink-4: #a6b0a8;
+  --line: #e5ebe5;
+  --line-2: #d6ded7;
 
-  /* Coral — PRIMARY UI accent */
-  --accent: #fb5a43;
-  --accent-2: #ea4129;
-  --accent-3: #ff7e69;
-  --accent-w: #ffece7;
-  --accent-w2: #ffd9d0;
-  --accent-glow: rgba(251, 90, 67, 0.22);
-
-  /* Warm secondaries (gradients, decoration) */
-  --peach: #ffb38f;
-  --pink: #ff80a0;
-  --orange: #ff9f45;
-  --gold: #ffc24b;
-  --grad-warm: linear-gradient(100deg, #fb5a43 0%, #ff7e8a 45%, #ff9f45 100%);
-  --grad-warm-soft: linear-gradient(120deg, #ffd9d0 0%, #ffe3d0 50%, #ffeccb 100%);
-
-  /* Green — SUCCESS / WON only (Learners brand, now semantic) */
+  /* GREEN — primary brand accent */
+  --accent: #1d921e;
+  --accent-2: #157a17;
+  --accent-3: #41bf45;
+  --accent-4: #7fd14f;
+  --accent-w: #e7f6e8;
+  --accent-w2: #ccecce;
+  --accent-glow: rgba(29, 146, 30, 0.24);
   --brand: #1d921e;
+
+  /* Green gradients (hero, bands, fills) */
+  --grad-warm: linear-gradient(115deg, #15871a 0%, #1d921e 36%, #3fbf4a 76%, #7fd14f 100%);
+  --grad-warm-soft: linear-gradient(120deg, #d8f0d2 0%, #e6f5dd 50%, #eef7d2 100%);
+  --grad-teal: linear-gradient(120deg, #0fb59a 0%, #2cb84a 100%);
+
+  /* Success / Won (same green family, brighter for celebration) */
   --success: #1d921e;
-  --success-2: #167a18;
-  --success-3: #34b13a;
+  --success-2: #157a17;
+  --success-3: #41bf45;
   --success-w: #e7f6e8;
 
-  /* Deep navy (dark sidebar, high-contrast CTA) */
-  --navy: #1b1c3a;
-  --navy-2: #26284f;
-  --navy-3: #32356a;
-  --navy-line: rgba(255, 255, 255, 0.1);
-  --navy-ink: #c7c8e0;
-  --navy-ink-2: #888aae;
+  /* Deep green-black (rail, dark CTA, footers) */
+  --navy: #0d1c13;
+  --navy-2: #122a1c;
+  --navy-3: #1b3b28;
+  --navy-line: rgba(255, 255, 255, 0.09);
+  --navy-ink: #bcd2c2;
+  --navy-ink-2: #7c9685;
+  --dark: #0b1810;
 
-  /* Functional / phase colors (warm-leaning, distinct) */
+  /* Warm score / functional accents (distinct from brand green) */
+  --ember: #e8590c;
+  --ember-w: #ffefe2;
   --rose: #e23b54;
   --rose-w: #fdecef;
-  --amber: #c2740a;
-  --amber-w: #fbf1e1;
+  --amber: #d9870f;
+  --amber-w: #fbf2e0;
+  --gold: #f0b429;
+  --blue: #3b82f6;
+  --blue-w: #eaf1fe;
+  --violet: #8b5cf6;
+  --violet-w: #f1ecfe;
+  --teal: #0fb5a0;
+  --teal-w: #e3f6f2;
   --emerald: #1d921e;
   --emerald-w: #e7f6e8;
-  --blue: #5b7cf0;
-  --blue-w: #eef1fe;
-  --violet: #a564e6;
-  --violet-w: #f5edfd;
-  --teal: #0fa594;
-  --teal-w: #e5f6f3;
+  /* soft decorative tints for landing */
+  --peach: #a9dd90;
+  --pink: #6fcf9b;
+  --orange: #cfe9a2;
 
-  /* Elevation — soft, warm-tinted */
-  --shadow-xs: 0 1px 2px rgba(27, 28, 58, 0.05);
-  --shadow-sm: 0 2px 6px -2px rgba(27, 28, 58, 0.08), 0 1px 2px rgba(27, 28, 58, 0.05);
-  --shadow: 0 10px 26px -10px rgba(27, 28, 58, 0.16), 0 3px 8px -4px rgba(27, 28, 58, 0.08);
-  --shadow-lg: 0 30px 70px -22px rgba(27, 28, 58, 0.28), 0 10px 28px -14px rgba(27, 28, 58, 0.14);
-  --shadow-coral: 0 10px 28px -10px var(--accent-glow);
+  /* Elevation */
+  --shadow-xs: 0 1px 2px rgba(15, 31, 22, 0.05);
+  --shadow-sm: 0 2px 6px -2px rgba(15, 31, 22, 0.08), 0 1px 2px rgba(15, 31, 22, 0.05);
+  --shadow: 0 12px 28px -10px rgba(15, 31, 22, 0.16), 0 3px 8px -4px rgba(15, 31, 22, 0.08);
+  --shadow-lg: 0 32px 72px -22px rgba(15, 31, 22, 0.3), 0 10px 28px -14px rgba(15, 31, 22, 0.14);
+  --shadow-brand: 0 12px 28px -10px var(--accent-glow);
   --ring: 0 0 0 3px var(--accent-glow);
 
   /* Radius — generous, soft */

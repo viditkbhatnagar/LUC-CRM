@@ -2,13 +2,14 @@ import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Doodle from '../components/Doodle.jsx';
 import Icon from '../components/Icon.jsx';
+import Logo from '../components/Logo.jsx';
 import '../styles/landing.css';
 
 const FEATURES = [
   { icon: 'pipeline', bg: 'var(--blue)', title: '13-stage pipeline', body: 'A controlled lead-to-admission lifecycle — every lead in exactly one stage, moved only along defined paths.' },
   { icon: 'overview', bg: 'var(--accent)', title: 'Gates that hold', body: 'Required fields, document verification and a payment money-gate are enforced server-side. No lead skips a step.' },
   { icon: 'automation', bg: 'var(--violet)', title: 'Automations & SLAs', body: 'Acknowledgements, follow-ups, reminders and per-stage SLAs fire on their own. Breaches escalate to managers.' },
-  { icon: 'reports', bg: 'var(--success)', title: '5 live dashboards', body: 'Source, funnel, counsellor, aging and lost-reason analytics — straight from live data, scoped by role.' },
+  { icon: 'reports', bg: 'var(--teal)', title: '5 live dashboards', body: 'Source, funnel, counsellor, aging and lost-reason analytics — straight from live data, scoped by role.' },
 ];
 
 const PHASES = [
@@ -55,7 +56,7 @@ export default function Landing() {
       {/* Nav */}
       <nav className={`lp-nav ${scrolled ? 'scrolled' : ''}`}>
         <div className="lp-wrap lp-nav-in">
-          <div className="lp-logo"><span className="dot">L</span> LUC CRM</div>
+          <div className="lp-logo"><Logo badge={30} /></div>
           <div className="lp-navlinks">
             <a href="#features">Product</a>
             <a href="#workflow">Workflow</a>

@@ -38,9 +38,10 @@ test.describe('LUC CRM · end-to-end', () => {
     await expect(page.getByRole('heading', { name: 'Welcome back' })).toBeVisible();
     await page.screenshot({ path: `${SHOTS}/01-login.png`, fullPage: true });
     await login(page);
-    await expect(page.getByRole('heading', { name: /Welcome/ })).toBeVisible();
-    // wait for the priority queue to actually load before the screenshot
-    await page.locator('.queue .lead-card, .content .empty').first().waitFor({ timeout: 15000 });
+    await expect(page.getByRole('heading', { name: /Good (morning|afternoon|evening)/i })).toBeVisible();
+    // wait for the priority queue (bento qcards) to load before the screenshot
+    await page.locator('.queue-grid .qcard, .content .empty').first().waitFor({ timeout: 20000 });
+    await page.waitForTimeout(500);
     await page.screenshot({ path: `${SHOTS}/02-dashboard.png`, fullPage: true });
   });
 
@@ -54,9 +55,9 @@ test.describe('LUC CRM · end-to-end', () => {
 
     await page.getByRole('link', { name: 'Dashboards' }).click();
     await expect(page.getByRole('heading', { name: 'Dashboards' })).toBeVisible();
-    await page.locator('.recharts-surface').waitFor({ timeout: 15000 }); // funnel chart rendered
-    await page.locator('table tbody tr').first().waitFor({ timeout: 15000 }); // tables populated
-    await page.waitForTimeout(500);
+    await page.locator('.recharts-surface').first().waitFor({ timeout: 25000 }); // charts rendered
+    await page.locator('table tbody tr').first().waitFor({ timeout: 25000 }); // tables populated
+    await page.waitForTimeout(700);
     await page.screenshot({ path: `${SHOTS}/04-reports.png`, fullPage: true });
 
     await page.getByRole('link', { name: 'Flow Map' }).click();

@@ -1,5 +1,6 @@
 import { NavLink } from 'react-router-dom';
 import Icon from './Icon.jsx';
+import Logo from './Logo.jsx';
 
 const NAV = [
   { to: '/', label: 'Overview', icon: 'overview', end: true },
@@ -25,7 +26,7 @@ export default function Sidebar() {
   return (
     <aside className="sidebar">
       <div className="brand">
-        <span className="dot">L</span>
+        <Logo badge={28} word={false} />
         <div>
           LUC CRM
           <small>Learners Education</small>

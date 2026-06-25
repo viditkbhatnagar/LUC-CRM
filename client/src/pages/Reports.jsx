@@ -1,7 +1,9 @@
-import { ResponsiveContainer, BarChart, Bar, XAxis, YAxis, Tooltip, Cell } from 'recharts';
+import { ResponsiveContainer, BarChart, Bar, XAxis, YAxis, Tooltip, Cell, PieChart, Pie } from 'recharts';
 import Topbar from '../components/Topbar.jsx';
 import Stat from '../components/Stat.jsx';
 import { useAuth } from '../context/AuthContext.jsx';
+
+const DONUT_COLORS = ['#1d921e', '#41bf45', '#0fb5a0', '#3b82f6', '#8b5cf6', '#d9870f', '#e8590c', '#e23b54'];
 import {
   useKpis, useSourcePerformance, useFunnel, useStageAging,
   useLostReasons, useRule1Check, useCounsellorPerformance,
@@ -58,20 +60,42 @@ export default function Reports() {
           </div>
         </section>
 
-        {/* Funnel */}
-        <section className="card">
-          <h3>Funnel · live counts across 13 stages</h3>
-          <ResponsiveContainer width="100%" height={300}>
-            <BarChart data={funnelData} margin={{ top: 8, right: 16, bottom: 40, left: 0 }}>
-              <XAxis dataKey="short" angle={-35} textAnchor="end" interval={0} tick={{ fontSize: 11 }} height={60} />
-              <YAxis allowDecimals={false} tick={{ fontSize: 11 }} />
-              <Tooltip formatter={(v) => [v, 'leads']} labelFormatter={(_, p) => p?.[0]?.payload?.label} />
-              <Bar dataKey="count" radius={[5, 5, 0, 0]}>
-                {funnelData.map((_, i) => <Cell key={i} fill="var(--accent)" />)}
-              </Bar>
-            </BarChart>
-          </ResponsiveContainer>
-        </section>
+        {/* Funnel + source donut */}
+        <div className="chart-row">
+          <section className="card">
+            <h3>Funnel · live counts across 13 stages</h3>
+            <ResponsiveContainer width="100%" height={300}>
+              <BarChart data={funnelData} margin={{ top: 8, right: 16, bottom: 40, left: 0 }}>
+                <XAxis dataKey="short" angle={-35} textAnchor="end" interval={0} tick={{ fontSize: 11 }} height={60} />
+                <YAxis allowDecimals={false} tick={{ fontSize: 11 }} />
+                <Tooltip formatter={(v) => [v, 'leads']} labelFormatter={(_, p) => p?.[0]?.payload?.label} />
+                <Bar dataKey="count" radius={[5, 5, 0, 0]}>
+                  {funnelData.map((_, i) => <Cell key={i} fill="var(--accent)" />)}
+                </Bar>
+              </BarChart>
+            </ResponsiveContainer>
+          </section>
+
+          <section className="card">
+            <h3>Lead sources</h3>
+            <ResponsiveContainer width="100%" height={200}>
+              <PieChart>
+                <Pie data={source.data || []} dataKey="leads" nameKey="source" cx="50%" cy="50%" innerRadius={52} outerRadius={80} paddingAngle={2} stroke="none">
+                  {(source.data || []).map((_, i) => <Cell key={i} fill={DONUT_COLORS[i % DONUT_COLORS.length]} />)}
+                </Pie>
+                <Tooltip formatter={(v, n) => [v, n]} />
+              </PieChart>
+            </ResponsiveContainer>
+            <div className="donut-legend">
+              {(source.data || []).map((s, i) => (
+                <div className="donut-leg" key={s.source}>
+                  <span className="sw" style={{ background: DONUT_COLORS[i % DONUT_COLORS.length] }} />
+                  {s.source} <span className="n">{s.leads}</span>
+                </div>
+              ))}
+            </div>
+          </section>
+        </div>
 
         <div className="ws-grid" style={{ gridTemplateColumns: '1fr 1fr' }}>
           {/* Source performance */}
