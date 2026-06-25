@@ -26,11 +26,7 @@ export default function Sidebar() {
   return (
     <aside className="sidebar">
       <div className="brand">
-        <Logo badge={28} word={false} />
-        <div>
-          LUC CRM
-          <small>Learners Education</small>
-        </div>
+        <Logo onDark width={190} />
       </div>
 
       <nav className="nav" aria-label="Main navigation">

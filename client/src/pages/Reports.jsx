@@ -3,7 +3,7 @@ import Topbar from '../components/Topbar.jsx';
 import Stat from '../components/Stat.jsx';
 import { useAuth } from '../context/AuthContext.jsx';
 
-const DONUT_COLORS = ['#1d921e', '#41bf45', '#0fb5a0', '#3b82f6', '#8b5cf6', '#d9870f', '#e8590c', '#e23b54'];
+const DONUT_COLORS = ['#259d4a', '#41c25f', '#0c5159', '#3b82f6', '#8b5cf6', '#d9870f', '#e8590c', '#e23b54'];
 import {
   useKpis, useSourcePerformance, useFunnel, useStageAging,
   useLostReasons, useRule1Check, useCounsellorPerformance,

@@ -1,22 +1,15 @@
-// Centralized brand logo. To use a real logo image everywhere, drop the file at
-// client/src/assets/logo.svg (or .png), set LOGO_SRC below, and it updates in
-// every place (sidebar, topbar, login, landing). Until then it renders the
-// wordmark badge + "LUC CRM".
-// import logoSrc from '../assets/logo.svg';
-const LOGO_SRC = null; // set to logoSrc once the brand image is added
+// Centralized brand logo (the official LUC lockup). `onDark` swaps to the
+// white-wordmark variant so it stays visible on the dark teal rail / panels.
+import logo from '../assets/logo.svg';
+import logoLight from '../assets/logo-light.svg';
 
-export default function Logo({ badge = 28, word = true, wordOnly = false }) {
+export default function Logo({ width = 150, onDark = false, className = '', style }) {
   return (
-    <span className="logo-lockup">
-      {!wordOnly &&
-        (LOGO_SRC ? (
-          <img className="logo-img" src={LOGO_SRC} alt="LUC CRM" style={{ height: badge }} />
-        ) : (
-          <span className="logo-badge" style={{ width: badge, height: badge, fontSize: badge * 0.5 }}>
-            L
-          </span>
-        ))}
-      {word && <span className="logo-word">LUC CRM</span>}
-    </span>
+    <img
+      className={`logo-img ${className}`}
+      src={onDark ? logoLight : logo}
+      alt="Learners University College"
+      style={{ width, height: 'auto', display: 'block', ...style }}
+    />
   );
 }

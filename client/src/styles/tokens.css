@@ -18,35 +18,35 @@
   --line: #e5ebe5;
   --line-2: #d6ded7;
 
-  /* GREEN — primary brand accent */
-  --accent: #1d921e;
-  --accent-2: #157a17;
-  --accent-3: #41bf45;
-  --accent-4: #7fd14f;
-  --accent-w: #e7f6e8;
-  --accent-w2: #ccecce;
-  --accent-glow: rgba(29, 146, 30, 0.24);
-  --brand: #1d921e;
+  /* GREEN — primary brand accent (LUC logo green #259D4A) */
+  --accent: #259d4a;
+  --accent-2: #1c8038;
+  --accent-3: #41c25f;
+  --accent-4: #7fd877;
+  --accent-w: #e9f6ec;
+  --accent-w2: #cfeed4;
+  --accent-glow: rgba(37, 157, 74, 0.26);
+  --brand: #259d4a;
 
   /* Green gradients (hero, bands, fills) */
-  --grad-warm: linear-gradient(115deg, #15871a 0%, #1d921e 36%, #3fbf4a 76%, #7fd14f 100%);
-  --grad-warm-soft: linear-gradient(120deg, #d8f0d2 0%, #e6f5dd 50%, #eef7d2 100%);
-  --grad-teal: linear-gradient(120deg, #0fb59a 0%, #2cb84a 100%);
+  --grad-warm: linear-gradient(118deg, #1b8a3f 0%, #259d4a 38%, #41c25f 76%, #7fd877 100%);
+  --grad-warm-soft: linear-gradient(120deg, #d8f1dc 0%, #e6f6e2 50%, #eef8d8 100%);
+  --grad-teal: linear-gradient(120deg, #0c5159 0%, #259d4a 100%);
 
-  /* Success / Won (same green family, brighter for celebration) */
-  --success: #1d921e;
-  --success-2: #157a17;
-  --success-3: #41bf45;
-  --success-w: #e7f6e8;
+  /* Success / Won */
+  --success: #259d4a;
+  --success-2: #1c8038;
+  --success-3: #41c25f;
+  --success-w: #e9f6ec;
 
-  /* Deep green-black (rail, dark CTA, footers) */
-  --navy: #0d1c13;
-  --navy-2: #122a1c;
-  --navy-3: #1b3b28;
-  --navy-line: rgba(255, 255, 255, 0.09);
-  --navy-ink: #bcd2c2;
-  --navy-ink-2: #7c9685;
-  --dark: #0b1810;
+  /* Deep teal (rail, dark CTA, footers) — LUC logo dark #0B434B */
+  --navy: #0b434b;
+  --navy-2: #0e525a;
+  --navy-3: #156069;
+  --navy-line: rgba(255, 255, 255, 0.1);
+  --navy-ink: #b6d0d2;
+  --navy-ink-2: #6f9499;
+  --dark: #093a41;
 
   /* Warm score / functional accents (distinct from brand green) */
   --ember: #e8590c;
@@ -62,8 +62,8 @@
   --violet-w: #f1ecfe;
   --teal: #0fb5a0;
   --teal-w: #e3f6f2;
-  --emerald: #1d921e;
-  --emerald-w: #e7f6e8;
+  --emerald: #259d4a;
+  --emerald-w: #e9f6ec;
   /* soft decorative tints for landing */
   --peach: #a9dd90;
   --pink: #6fcf9b;

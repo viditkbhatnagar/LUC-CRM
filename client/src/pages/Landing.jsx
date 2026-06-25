@@ -56,7 +56,7 @@ export default function Landing() {
       {/* Nav */}
       <nav className={`lp-nav ${scrolled ? 'scrolled' : ''}`}>
         <div className="lp-wrap lp-nav-in">
-          <div className="lp-logo"><Logo badge={30} /></div>
+          <div className="lp-logo"><Logo width={150} /></div>
           <div className="lp-navlinks">
             <a href="#features">Product</a>
             <a href="#workflow">Workflow</a>
@@ -242,7 +242,7 @@ export default function Landing() {
       <footer className="lp-wrap lp-footer">
         <div className="lp-footer-grid">
           <div>
-            <div className="lp-logo" style={{ marginBottom: '0.7rem' }}><span className="dot">L</span> LUC CRM</div>
+            <div className="lp-logo" style={{ marginBottom: '0.7rem' }}><Logo width={150} /></div>
             <p className="muted" style={{ fontSize: '0.86rem', maxWidth: '26ch' }}>The in-house lead-to-admission CRM for Learners Education.</p>
           </div>
           <div className="lp-footer-col"><h5>Product</h5><a onClick={go} style={{ cursor: 'pointer' }}>Pipeline</a><a onClick={go} style={{ cursor: 'pointer' }}>Workspace</a><a onClick={go} style={{ cursor: 'pointer' }}>Dashboards</a></div>

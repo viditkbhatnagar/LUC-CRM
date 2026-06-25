@@ -36,8 +36,8 @@ export default function Login() {
     <main className="auth-split">
       {/* Brand panel */}
       <section className="auth-brand">
-        <Link to="/welcome" className="mark" style={{ color: '#fff', position: 'relative', zIndex: 1 }}>
-          <Logo badge={30} />
+        <Link to="/welcome" className="mark" style={{ position: 'relative', zIndex: 1 }}>
+          <Logo onDark width={210} />
         </Link>
         <div className="auth-hero">
           <h2>Every enquiry, worked to a <span className="hl">won admission</span>.</h2>
