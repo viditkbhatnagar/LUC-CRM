@@ -11,6 +11,28 @@ async function login(page, email = 'admin@learnerseducation.com') {
 }
 
 test.describe('LUC CRM · end-to-end', () => {
+  test('landing page renders (public)', async ({ page }) => {
+    await page.goto('/welcome');
+    await expect(page.getByRole('heading', { name: /Built for teams that turn/i })).toBeVisible();
+    // scroll through to trigger the scroll-reveal sections, then back to top
+    await page.evaluate(async () => {
+      await new Promise((res) => {
+        let y = 0;
+        const step = () => {
+          window.scrollBy(0, 700);
+          y += 700;
+          if (y < document.body.scrollHeight) setTimeout(step, 70);
+          else res();
+        };
+        step();
+      });
+    });
+    await page.waitForTimeout(400);
+    await page.evaluate(() => window.scrollTo(0, 0));
+    await page.waitForTimeout(300);
+    await page.screenshot({ path: `${SHOTS}/00-landing.png`, fullPage: true });
+  });
+
   test('login screen renders and authenticates', async ({ page }) => {
     await page.goto('/login');
     await expect(page.getByRole('heading', { name: 'Welcome back' })).toBeVisible();

@@ -1,81 +1,97 @@
 /* ───────────────────────────────────────────────────────────────
- * Design tokens — Learners Education · "Refined SaaS" system.
- * Light, airy workspace · deep dark rail · precision green accent.
- * SINGLE SOURCE OF TRUTH FOR COLOR. Brand green = #1D921E.
+ * Design tokens — Learners Education · "Warm Studio" system.
+ * Cream canvas · coral accent · deep-navy ink · green = success/won.
+ * Inspired by Front: warm, bold, human. Display = Bricolage Grotesque.
  * ─────────────────────────────────────────────────────────────── */
 :root {
-  /* Neutrals — calibrated near-neutrals with a whisper of green */
-  --canvas: #f4f6f4;
+  /* Warm neutrals */
+  --canvas: #fbf6ef;
   --surface: #ffffff;
-  --surface-2: #fafbfa;
-  --surface-3: #eef2ef;
-  --surface-inset: #f3f6f4;
-  --ink: #0d1512;
-  --ink-2: #495751;
-  --ink-3: #8b958f;
-  --ink-4: #aab2ad;
-  --line: #e8ece9;
-  --line-2: #dde2de;
+  --surface-2: #fdf9f3;
+  --surface-3: #f5ece1;
+  --surface-warm: #fcf1e8;
+  --ink: #1b1c3a;
+  --ink-2: #565777;
+  --ink-3: #8d8ea6;
+  --ink-4: #b3b4c6;
+  --line: #efe6da;
+  --line-2: #e6d9c8;
 
-  /* Brand — Learners Education green (primary, used as precision accent) */
+  /* Coral — PRIMARY UI accent */
+  --accent: #fb5a43;
+  --accent-2: #ea4129;
+  --accent-3: #ff7e69;
+  --accent-w: #ffece7;
+  --accent-w2: #ffd9d0;
+  --accent-glow: rgba(251, 90, 67, 0.22);
+
+  /* Warm secondaries (gradients, decoration) */
+  --peach: #ffb38f;
+  --pink: #ff80a0;
+  --orange: #ff9f45;
+  --gold: #ffc24b;
+  --grad-warm: linear-gradient(100deg, #fb5a43 0%, #ff7e8a 45%, #ff9f45 100%);
+  --grad-warm-soft: linear-gradient(120deg, #ffd9d0 0%, #ffe3d0 50%, #ffeccb 100%);
+
+  /* Green — SUCCESS / WON only (Learners brand, now semantic) */
   --brand: #1d921e;
-  --brand-2: #167a18;
-  --brand-3: #34b13a;
-  --brand-ink: #0f3d18;
-  --brand-w: #e8f6e9;
-  --brand-w2: #d7efd8;
-  --brand-glow: rgba(29, 146, 30, 0.18);
+  --success: #1d921e;
+  --success-2: #167a18;
+  --success-3: #34b13a;
+  --success-w: #e7f6e8;
 
-  /* Deep rail / dark surfaces */
-  --dark: #0a120e;
-  --dark-2: #0e1a14;
-  --dark-3: #13231b;
-  --dark-line: rgba(255, 255, 255, 0.08);
-  --dark-ink: #c9d6cd;
-  --dark-ink-2: #7e9587;
+  /* Deep navy (dark sidebar, high-contrast CTA) */
+  --navy: #1b1c3a;
+  --navy-2: #26284f;
+  --navy-3: #32356a;
+  --navy-line: rgba(255, 255, 255, 0.1);
+  --navy-ink: #c7c8e0;
+  --navy-ink-2: #888aae;
 
-  /* Functional state colors (muted, refined — not candy) */
+  /* Functional / phase colors (warm-leaning, distinct) */
   --rose: #e23b54;
   --rose-w: #fdecef;
-  --amber: #b9740c;
-  --amber-w: #fbf2e3;
-  --emerald: #0a9d5a;
-  --emerald-w: #e7f7ef;
-  --blue: #2f6bf0;
-  --blue-w: #ecf1fe;
-  --violet: #7a5af0;
-  --violet-w: #f1edfe;
-  --teal: #0c9c8e;
-  --teal-w: #e6f6f4;
+  --amber: #c2740a;
+  --amber-w: #fbf1e1;
+  --emerald: #1d921e;
+  --emerald-w: #e7f6e8;
+  --blue: #5b7cf0;
+  --blue-w: #eef1fe;
+  --violet: #a564e6;
+  --violet-w: #f5edfd;
+  --teal: #0fa594;
+  --teal-w: #e5f6f3;
 
-  /* Elevation — soft, layered (modern SaaS) */
-  --shadow-xs: 0 1px 2px rgba(13, 21, 18, 0.05);
-  --shadow-sm: 0 1px 3px rgba(13, 21, 18, 0.06), 0 1px 2px rgba(13, 21, 18, 0.04);
-  --shadow: 0 6px 16px -6px rgba(13, 21, 18, 0.1), 0 2px 6px -2px rgba(13, 21, 18, 0.06);
-  --shadow-lg: 0 24px 60px -18px rgba(13, 21, 18, 0.22), 0 8px 24px -12px rgba(13, 21, 18, 0.12);
-  --ring: 0 0 0 3px var(--brand-glow);
+  /* Elevation — soft, warm-tinted */
+  --shadow-xs: 0 1px 2px rgba(27, 28, 58, 0.05);
+  --shadow-sm: 0 2px 6px -2px rgba(27, 28, 58, 0.08), 0 1px 2px rgba(27, 28, 58, 0.05);
+  --shadow: 0 10px 26px -10px rgba(27, 28, 58, 0.16), 0 3px 8px -4px rgba(27, 28, 58, 0.08);
+  --shadow-lg: 0 30px 70px -22px rgba(27, 28, 58, 0.28), 0 10px 28px -14px rgba(27, 28, 58, 0.14);
+  --shadow-coral: 0 10px 28px -10px var(--accent-glow);
+  --ring: 0 0 0 3px var(--accent-glow);
 
-  /* Radius — modern, tighter */
-  --r: 12px;
-  --r-sm: 8px;
-  --r-xs: 6px;
-  --r-lg: 18px;
+  /* Radius — generous, soft */
+  --r: 16px;
+  --r-sm: 11px;
+  --r-xs: 8px;
+  --r-lg: 24px;
   --r-pill: 999px;
 
   /* Type */
-  --display: 'Space Grotesk', 'Inter', system-ui, sans-serif;
+  --display: 'Bricolage Grotesque', 'Inter', system-ui, sans-serif;
   --body: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
-  --mono: 'Space Grotesk', ui-monospace, 'SF Mono', Menlo, monospace;
+  --mono: ui-monospace, 'SF Mono', Menlo, monospace;
 
   /* Motion */
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
-  --dur-fast: 140ms;
-  --dur: 240ms;
-  --dur-slow: 460ms;
+  --spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --dur-fast: 150ms;
+  --dur: 260ms;
+  --dur-slow: 520ms;
 
-  --sidebar-w: 256px;
-  --topbar-h: 64px;
+  --sidebar-w: 258px;
+  --topbar-h: 66px;
 }
 
 /* ── Reset / base ──────────────────────────────────────────────── */
@@ -98,10 +114,8 @@ body {
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  font-feature-settings: 'cv11' 1, 'ss01' 1;
   text-rendering: optimizeLegibility;
 }
-/* Tabular figures everywhere numbers matter (CRM is number-dense) */
 .num,
 .value,
 .kpi-num,
@@ -117,12 +131,12 @@ h4 {
   font-family: var(--display);
   color: var(--ink);
   margin: 0 0 0.4em;
-  line-height: 1.15;
+  line-height: 1.08;
   letter-spacing: -0.02em;
-  font-weight: 600;
+  font-weight: 700;
 }
 a {
-  color: var(--brand-2);
+  color: var(--accent-2);
   text-decoration: none;
 }
 button {
@@ -130,8 +144,8 @@ button {
   cursor: pointer;
 }
 ::selection {
-  background: var(--brand-w2);
-  color: var(--brand-ink);
+  background: var(--accent-w2);
+  color: var(--accent-2);
 }
 :focus-visible {
   outline: none;
@@ -139,7 +153,6 @@ button {
   border-radius: var(--r-xs);
 }
 
-/* Refined scrollbars */
 * {
   scrollbar-width: thin;
   scrollbar-color: var(--line-2) transparent;

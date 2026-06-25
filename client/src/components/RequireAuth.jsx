@@ -13,6 +13,6 @@ export default function RequireAuth({ children }) {
       </div>
     );
   }
-  if (!user) return <Navigate to="/login" replace state={{ from: location }} />;
+  if (!user) return <Navigate to="/welcome" replace state={{ from: location }} />;
   return children;
 }

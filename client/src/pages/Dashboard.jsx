@@ -2,6 +2,7 @@ import { useMemo } from 'react';
 import Topbar from '../components/Topbar.jsx';
 import LeadCard from '../components/LeadCard.jsx';
 import Stat from '../components/Stat.jsx';
+import Doodle from '../components/Doodle.jsx';
 import { useLeads } from '../hooks/useLeads.js';
 import { useWorkflow } from '../hooks/useWorkflow.js';
 import { useAuth } from '../context/AuthContext.jsx';
@@ -51,9 +52,16 @@ export default function Dashboard() {
           <Stat label="Hot · ≥80" value={stats.hot} />
         </div>
 
-        <h2 className="section-title">Priority queue · overdue first, then score</h2>
+        <h2 className="section-title" style={{ display: 'inline-flex', alignItems: 'center', gap: 6 }}>
+          <Doodle name="sparkle" size={13} color="var(--accent)" /> Priority queue · overdue first, then score
+        </h2>
         {isLoading && <div className="spinner">Loading…</div>}
-        {!isLoading && queue.length === 0 && <div className="empty">No active leads. Capture one to get started.</div>}
+        {!isLoading && queue.length === 0 && (
+          <div className="empty">
+            <Doodle name="loop" size={48} color="var(--accent-3)" style={{ display: 'block', margin: '0 auto 0.6rem' }} />
+            All clear — no active leads. Capture one to get started.
+          </div>
+        )}
         <div className="queue">
           {queue.map((lead) => (
             <LeadCard key={lead._id} lead={lead} stageLabel={stageLabel[lead.stage]} />

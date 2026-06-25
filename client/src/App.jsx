@@ -13,12 +13,14 @@ import RequireAuth from './components/RequireAuth.jsx';
 const Reports = lazy(() => import('./pages/Reports.jsx'));
 const FlowMap = lazy(() => import('./pages/FlowMap.jsx'));
 const Automation = lazy(() => import('./pages/Automation.jsx'));
+const Landing = lazy(() => import('./pages/Landing.jsx'));
 
 const Loading = () => <div className="spinner" style={{ padding: '4rem' }}>Loading…</div>;
 
 export default function App() {
   return (
     <Routes>
+      <Route path="/welcome" element={<Suspense fallback={<Loading />}><Landing /></Suspense>} />
       <Route path="/login" element={<Login />} />
       <Route
         element={

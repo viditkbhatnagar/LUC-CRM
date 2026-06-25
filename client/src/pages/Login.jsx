@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate, useLocation, Navigate } from 'react-router-dom';
+import { useNavigate, useLocation, Navigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext.jsx';
 import { ApiError } from '../lib/api.js';
 
@@ -35,11 +35,11 @@ export default function Login() {
     <main className="auth-split">
       {/* Brand panel */}
       <section className="auth-brand">
-        <div className="mark">
+        <Link to="/welcome" className="mark" style={{ color: '#fff', position: 'relative', zIndex: 1 }}>
           <span className="dot">L</span> LUC CRM
-        </div>
+        </Link>
         <div className="auth-hero">
-          <h2>Every enquiry, worked to a won admission.</h2>
+          <h2>Every enquiry, worked to a <span className="hl">won admission</span>.</h2>
           <p>The lead-to-admission workspace for Learners Education — controlled, gated, and never idle.</p>
         </div>
         <div className="auth-stats">

@@ -66,8 +66,8 @@ export default function Reports() {
               <XAxis dataKey="short" angle={-35} textAnchor="end" interval={0} tick={{ fontSize: 11 }} height={60} />
               <YAxis allowDecimals={false} tick={{ fontSize: 11 }} />
               <Tooltip formatter={(v) => [v, 'leads']} labelFormatter={(_, p) => p?.[0]?.payload?.label} />
-              <Bar dataKey="count" radius={[4, 4, 0, 0]}>
-                {funnelData.map((_, i) => <Cell key={i} fill="var(--brand)" />)}
+              <Bar dataKey="count" radius={[5, 5, 0, 0]}>
+                {funnelData.map((_, i) => <Cell key={i} fill="var(--accent)" />)}
               </Bar>
             </BarChart>
           </ResponsiveContainer>
